@@ -372,26 +372,111 @@ cbuffer FNiagaraExternalParameters
 	int Emitter_RandomSeed;
 }
 
+struct FParamMap0_Vector2DFromFloat002
+{
+	float Value;
+};
+
+struct FParamMap0_Vector2DFromFloat
+{
+	float Value;
+};
+
+struct FParamMap0_UniformRangedFloat005
+{
+	bool FixedRandomSeed;
+	float Maximum;
+	float Minimum;
+	bool OverrideRandomness;
+	bool OverrideSeed;
+	int RandomnessMode;
+	int RandomSeed;
+};
+
+struct FParamMap0_UniformRangedFloat004
+{
+	bool FixedRandomSeed;
+	float Maximum;
+	float Minimum;
+	bool OverrideRandomness;
+	bool OverrideSeed;
+	int RandomnessMode;
+	int RandomSeed;
+};
+
+struct FParamMap0_UniformRangedFloat002
+{
+	bool FixedRandomSeed;
+	float Maximum;
+	float Minimum;
+	bool OverrideRandomness;
+	bool OverrideSeed;
+	int RandomnessMode;
+	int RandomSeed;
+};
+
 struct FParamMap0_Transient
 {
+	float CollisionDistanceToCollision;
+	float CollisionFriction;
+	bool CollisionIsResting;
+	float3 CollisionNormal;
+	float3 CollisionParticleRelativeCollisionLocation;
+	float3 CollisionParticleWorldPosition;
+	float CollisionRestitution;
+	float CollisionSize;
+	bool CollisionValid;
+	float3 CollisionVelocity;
+	float3 CollisionWorldPosition;
+	float4 ParticleColorScaleFactor;
 	float PhysicsDeltaTime;
 	float PhysicsDrag;
 	float3 PhysicsForce;
+	float PhysicsRotationalDrag;
 	int ScalabilityEmitterExecutionState;
 	float ScalabilityEmitterSpawnCountScale;
 	bool SpawningbCanEverSpawn;
+	float2 SpriteSizeScaleFactor;
 };
 
 struct FParamMap0_System
 {
 	float Age;
 	bool bCompleteOnInactive;
+	float CurrentLoopDelay;
 	float CurrentLoopDuration;
 	int ExecutionState;
 	int ExecutionStateSource;
 	int LoopCount;
 	float LoopedAge;
 	float NormalizedLoopAge;
+};
+
+struct FParamMap0_SpriteSizeScale
+{
+	float2 InitialSpriteSize;
+	float2 ScaleFactor;
+};
+
+struct FParamMap0_SphereLocation
+{
+	int CoordinateSpace;
+	bool FixedRandomSeed;
+	bool HemisphereX;
+	bool HemisphereY;
+	bool HemisphereZ;
+	float3 NonUniformScale;
+	bool NormalizeThickness;
+	float3 Offset;
+	bool OverrideRandomness;
+	bool OverrideSeed;
+	int RandomnessMode;
+	int RandomSeed;
+	int SpawnGroupMask;
+	float3 SphereOrigin;
+	float SphereRadius;
+	int SurfaceExpansionMode;
+	float SurfaceOnlyBandThickness;
 };
 
 struct FParamMap0_SpawnRate
@@ -414,27 +499,66 @@ struct FParamMap0_SolveForcesAndVelocity
 	bool WritetoIntrinsicProperties;
 };
 
+struct FParamMap0_ScaleColor
+{
+	float4 ColorValueToScale;
+	float ScaleAlpha;
+	float3 ScaleRGB;
+};
+
 struct FParamMap0_ParticleState
 {
 	float DeltaTime;
 	float Lifetime;
 };
 
+struct FParamMap0_Particles_Initial
+{
+	float4 Color;
+	float2 SpriteSize;
+};
+
+struct FParamMap0_Particles_Collision_CollisionQueryAndResponse001
+{
+	int CollisionID;
+};
+
+struct FParamMap0_Particles_Collision_CollisionQueryAndResponse
+{
+	int CollisionID;
+};
+
+struct FParamMap0_Particles_Collision
+{
+	FParamMap0_Particles_Collision_CollisionQueryAndResponse CollisionQueryAndResponse;
+	FParamMap0_Particles_Collision_CollisionQueryAndResponse001 CollisionQueryAndResponse001;
+};
+
 struct FParamMap0_Particles
 {
 	float Age;
+	FParamMap0_Particles_Collision Collision;
 	float4 Color;
+	bool HasCollided;
+	FParamMap0_Particles_Initial Initial;
 	float Lifetime;
 	float Mass;
 	float MaterialRandom;
 	float NormalizedAge;
+	int NumberOfCollisions;
 	float3 Position;
 	float3 PreviousVelocity;
+	float RestCounter;
 	float3 Scale;
 	float SpriteRotation;
 	float2 SpriteSize;
 	int UniqueID;
 	float3 Velocity;
+};
+
+struct FParamMap0_OUTPUT_VAR_SphereLocation
+{
+	float3 SphereNormal;
 };
 
 struct FParamMap0_OUTPUT_VAR_SolveForcesAndVelocity
@@ -450,10 +574,87 @@ struct FParamMap0_OUTPUT_VAR_ParticleState
 	bool FirstFrame;
 };
 
+struct FParamMap0_OUTPUT_VAR_Collision_CollisionQueryAndResponse001
+{
+	float CollisionPenetrationDistance;
+	bool DepthBasedCollisionParticleOccluded;
+	bool ParticleOnScreen;
+	bool PhysicsCollidesThisFrame;
+};
+
+struct FParamMap0_OUTPUT_VAR_Collision_CollisionQueryAndResponse
+{
+	float CollisionPenetrationDistance;
+	bool DepthBasedCollisionParticleOccluded;
+	bool ParticleOnScreen;
+	bool PhysicsCollidesThisFrame;
+};
+
+struct FParamMap0_OUTPUT_VAR_Collision
+{
+	FParamMap0_OUTPUT_VAR_Collision_CollisionQueryAndResponse CollisionQueryAndResponse;
+	FParamMap0_OUTPUT_VAR_Collision_CollisionQueryAndResponse001 CollisionQueryAndResponse001;
+	bool CollisionValid;
+	float3 ModuleCollision1Normal;
+	bool ModuleCollision1Valid;
+	float3 ModuleCollision2Normal;
+	bool ModuleCollision2Valid;
+	float3 ModuleCombinedCollisionNormal;
+	float3 TempPreviousForce;
+	float3 TempPreviousPosition;
+	float3 TempPreviousVelocity;
+};
+
+struct FParamMap0_OUTPUT_VAR_BoxLocation
+{
+	float3 BoxNormal;
+	float3 BoxVector;
+};
+
 struct FParamMap0_OUTPUT_VAR
 {
+	FParamMap0_OUTPUT_VAR_BoxLocation BoxLocation;
+	FParamMap0_OUTPUT_VAR_Collision Collision;
 	FParamMap0_OUTPUT_VAR_ParticleState ParticleState;
 	FParamMap0_OUTPUT_VAR_SolveForcesAndVelocity SolveForcesAndVelocity;
+	FParamMap0_OUTPUT_VAR_SphereLocation SphereLocation;
+};
+
+struct FParamMap0_NormalizedAngleToDegrees001
+{
+	float NormalizedAngle;
+};
+
+struct FParamMap0_NE_Fireflytest_SpawnRate
+{
+	NiagaraSpawnInfo SpawnOutputInfo;
+	float SpawnRemainder;
+};
+
+struct FParamMap0_NE_Fireflytest_Scalability
+{
+	float DistanceFraction;
+};
+
+struct FParamMap0_NE_Fireflytest
+{
+	float Age;
+	float AlphaScale;
+	float CurrentLoopDelay;
+	float CurrentLoopDuration;
+	int ExecutionState;
+	int ExecutionStateSource;
+	bool LocalSpace;
+	int LoopCount;
+	float LoopedAge;
+	float NormalizedLoopAge;
+	FParamMap0_NE_Fireflytest_Scalability Scalability;
+	FParamMap0_NE_Fireflytest_SpawnRate SpawnRate;
+};
+
+struct FParamMap0_Local_SphereLocation
+{
+	float3 SphereVector;
 };
 
 struct FParamMap0_Local_SpawnRate
@@ -473,17 +674,99 @@ struct FParamMap0_Local_SolveForcesAndVelocity
 
 struct FParamMap0_Local_EmitterState
 {
-	bool LoopCountIncreased;
-	float LoopDuration;
 	bool NoActiveEmitterParticles;
 	int PreviousEmitterState;
 };
 
+struct FParamMap0_Local_CurlNoiseForce
+{
+	float AgeAdvancement;
+	float DeterministicOffset;
+	float Falloff;
+	float3 SampledNoise;
+	float3 SamplePosition;
+};
+
+struct FParamMap0_Local_Collision_CollisionQueryAndResponse001
+{
+	float3 ModuleAttemptedMovementThisUpdate;
+	float3 ModuleForceContribution;
+	float3 ModuleFrictionForceVectorInNewtons;
+	float3 ModuleFrictionForceVelocityVector;
+	bool ModuleInitialDataInstanceAlive;
+	float3 ModuleInitialForceDividedByMass;
+	float ModuleNormalForceInNewtons;
+	float ModulePercentageOfTickDedicatedToUpdatingPosition;
+	float ModulePhysicsDeltaTime;
+	float3 ModulePlaneNormal;
+	float3 ModulePlanePivotPoint;
+	float3 ModuleReflectedVelocity;
+	float3 ModuleReflectedVelocityWithFrictionApplied;
+	bool ModuleRemoveRestitution;
+	float3 ModuleReturnedCollisionNormal;
+	bool ModuleReturnedCollisionValidBool;
+	float3 ModuleReturnedCollisionWorldPosition;
+	float ModuleReturnedFriction;
+	float ModuleReturnedRestitution;
+	float ModuleTickDeltaForThisCollisionUpdate;
+	float3 ModuleTraceDirection;
+	float3 ModuleTraceOrigin;
+	float3 ModuleTraceVector;
+	float3 ModuleTraceWorldEnd;
+	float3 ModuleTraceWorldStart;
+};
+
+struct FParamMap0_Local_Collision_CollisionQueryAndResponse
+{
+	float3 ModuleAttemptedMovementThisUpdate;
+	float3 ModuleForceContribution;
+	float3 ModuleFrictionForceVectorInNewtons;
+	float3 ModuleFrictionForceVelocityVector;
+	bool ModuleInitialDataInstanceAlive;
+	float3 ModuleInitialForceDividedByMass;
+	float ModuleNormalForceInNewtons;
+	float ModulePercentageOfTickDedicatedToUpdatingPosition;
+	float ModulePhysicsDeltaTime;
+	float3 ModulePlaneNormal;
+	float3 ModulePlanePivotPoint;
+	float3 ModuleReflectedVelocity;
+	float3 ModuleReflectedVelocityWithFrictionApplied;
+	bool ModuleRemoveRestitution;
+	float3 ModuleReturnedCollisionNormal;
+	bool ModuleReturnedCollisionValidBool;
+	float3 ModuleReturnedCollisionWorldPosition;
+	float ModuleReturnedFriction;
+	float ModuleReturnedRestitution;
+	float ModuleTickDeltaForThisCollisionUpdate;
+	float3 ModuleTraceDirection;
+	float3 ModuleTraceOrigin;
+	float3 ModuleTraceVector;
+	float3 ModuleTraceWorldEnd;
+	float3 ModuleTraceWorldStart;
+};
+
+struct FParamMap0_Local_Collision
+{
+	FParamMap0_Local_Collision_CollisionQueryAndResponse CollisionQueryAndResponse;
+	FParamMap0_Local_Collision_CollisionQueryAndResponse001 CollisionQueryAndResponse001;
+	float ModuleParticleRadius;
+	bool UpdateMeshRotation;
+};
+
+struct FParamMap0_Local_BoxLocation
+{
+	float3 BoxVector;
+};
+
 struct FParamMap0_Local
 {
+	FParamMap0_Local_BoxLocation BoxLocation;
+	FParamMap0_Local_Collision Collision;
+	FParamMap0_Local_CurlNoiseForce CurlNoiseForce;
 	FParamMap0_Local_EmitterState EmitterState;
 	FParamMap0_Local_SolveForcesAndVelocity SolveForcesAndVelocity;
 	FParamMap0_Local_SpawnRate SpawnRate;
+	FParamMap0_Local_SphereLocation SphereLocation;
 };
 
 struct FParamMap0_InitializeParticle
@@ -506,13 +789,29 @@ struct FParamMap0_InitializeParticle
 	bool WriteSpriteSize;
 };
 
+struct FParamMap0_FloatFromCurve001
+{
+	float CurveIndex;
+	float ScaleCurve;
+};
+
+struct FParamMap0_FloatFromCurve
+{
+	float CurveIndex;
+	float ScaleCurve;
+};
+
 struct FParamMap0_Engine_Owner
 {
 	float LODDistanceFraction;
 	float3 Position;
+	float4x4 SystemLocalToWorld;
+	float4x4 SystemLocalToWorldNoScale;
+	float4x4 SystemWorldToLocal;
+	float4x4 SystemWorldToLocalNoScale;
 };
 
-struct FParamMap0_Engine_Empty
+struct FParamMap0_Engine_NE_Fireflytest
 {
 	int NumParticles;
 	float SpawnCountScale;
@@ -527,36 +826,11 @@ struct FParamMap0_Engine
 {
 	float DeltaTime;
 	FParamMap0_Engine_Emitter Emitter;
-	FParamMap0_Engine_Empty Empty;
 	float InverseDeltaTime;
+	FParamMap0_Engine_NE_Fireflytest NE_Fireflytest;
 	FParamMap0_Engine_Owner Owner;
 	float RealTime;
 	float Time;
-};
-
-struct FParamMap0_Empty_SpawnRate
-{
-	NiagaraSpawnInfo SpawnOutputInfo;
-	float SpawnRemainder;
-};
-
-struct FParamMap0_Empty_Scalability
-{
-	float DistanceFraction;
-};
-
-struct FParamMap0_Empty
-{
-	float Age;
-	float CurrentLoopDuration;
-	int ExecutionState;
-	int ExecutionStateSource;
-	bool LocalSpace;
-	int LoopCount;
-	float LoopedAge;
-	float NormalizedLoopAge;
-	FParamMap0_Empty_Scalability Scalability;
-	FParamMap0_Empty_SpawnRate SpawnRate;
 };
 
 struct FParamMap0_EmitterState
@@ -571,27 +845,150 @@ struct FParamMap0_Emitter
 	int RandomSeed;
 };
 
+struct FParamMap0_Drag
+{
+	float Drag;
+	float RotationalDrag;
+};
+
 struct FParamMap0_DataInstance
 {
 	bool Alive;
 };
 
+struct FParamMap0_CurlNoiseForce
+{
+	float CurlNoiseConeMaskAngle;
+	float3 CurlNoiseConeMaskAxis;
+	float CurlNoiseConeMaskFalloffAngle;
+	float NoiseFrequency;
+	float NoiseStrength;
+	float3 PanNoiseField;
+	int RandomSeed;
+	float3 SamplePosition;
+};
+
+struct FParamMap0_Color
+{
+	float4 Color;
+	float ScaleAlpha;
+	float3 ScaleColor;
+};
+
+struct FParamMap0_Collision_CollisionQueryAndResponse001
+{
+	float BounceCollisionFriction;
+	bool CollisionEnabled;
+	float CollisionNormalRandomizationPercentage;
+	int CPUFrictionMergeType;
+	float DeltaTime;
+	float DynamicFrictionCoefficient;
+	float MaxIntersectionCorrectionDistance;
+	float MaxTraceLength;
+	float ParticleRadius;
+	float ParticleRestitutionCoeffiecient;
+	bool RandomizeCollisionNormal;
+	float StaticFrictionCoefficient;
+	float StaticFrictionEngagementSpeed;
+	float TraceVectorLengthMultiplier;
+	bool UpdateRotationalVelocity;
+};
+
+struct FParamMap0_Collision_CollisionQueryAndResponse
+{
+	float BounceCollisionFriction;
+	bool CollisionEnabled;
+	float CollisionNormalRandomizationPercentage;
+	int CPUFrictionMergeType;
+	float DeltaTime;
+	float DynamicFrictionCoefficient;
+	float MaxIntersectionCorrectionDistance;
+	float MaxTraceLength;
+	float ParticleRadius;
+	float ParticleRestitutionCoeffiecient;
+	bool RandomizeCollisionNormal;
+	float StaticFrictionCoefficient;
+	float StaticFrictionEngagementSpeed;
+	float TraceVectorLengthMultiplier;
+	bool UpdateRotationalVelocity;
+};
+
+struct FParamMap0_Collision
+{
+	float AdvancedAgingRate;
+	bool CollisionEnabled;
+	FParamMap0_Collision_CollisionQueryAndResponse CollisionQueryAndResponse;
+	FParamMap0_Collision_CollisionQueryAndResponse001 CollisionQueryAndResponse001;
+	bool ControlRestStateViaSurfaceNormal;
+	bool CorrectInterpenetration;
+	float CPUTraceVectorLengthMultiplier;
+	bool EnableRestState;
+	float Friction;
+	float FrictionDuringaBounce;
+	float MaxCPUTraceLength;
+	float MaximumPenetrationCorrectionDistance;
+	float MinimumCollisionNormalASC47RestNormalAlignmentPercentage;
+	float ParticleRadiusScale;
+	float PercentageofPenetrationBeforeRest;
+	float RandomizeCollisionNormal;
+	bool RandomizeCollisionNormalVector;
+	float Restitution;
+	float RestStateTimeRange;
+	float StaticFriction;
+	float StaticFrictionEngagementSpeed;
+	float3 ValidCollisionPlaneNormalForRest;
+};
+
+struct FParamMap0_BoxLocation
+{
+	float3 BoxOffset;
+	float3 BoxOrigin;
+	float3 BoxSize;
+	int CoordinateSpace;
+	bool FixedRandomSeed;
+	float NormalizedBoxRotationAngle;
+	bool OverrideRandomness;
+	bool OverrideSeed;
+	int RandomnessMode;
+	int RandomSeed;
+	float3 RotateBoxOnAxis;
+	int SpawnGroupMask;
+	int SurfaceExpansionMode;
+	float SurfaceOnlyBandThickness;
+};
+
 struct FParamMap0
 {
+	FParamMap0_BoxLocation BoxLocation;
+	FParamMap0_Collision Collision;
+	FParamMap0_Color Color;
+	FParamMap0_CurlNoiseForce CurlNoiseForce;
 	FParamMap0_DataInstance DataInstance;
+	FParamMap0_Drag Drag;
 	FParamMap0_Emitter Emitter;
 	FParamMap0_EmitterState EmitterState;
-	FParamMap0_Empty Empty;
 	FParamMap0_Engine Engine;
+	FParamMap0_FloatFromCurve FloatFromCurve;
+	FParamMap0_FloatFromCurve001 FloatFromCurve001;
 	FParamMap0_InitializeParticle InitializeParticle;
 	FParamMap0_Local Local;
+	FParamMap0_NE_Fireflytest NE_Fireflytest;
+	FParamMap0_NormalizedAngleToDegrees001 NormalizedAngleToDegrees001;
 	FParamMap0_OUTPUT_VAR OUTPUT_VAR;
 	FParamMap0_Particles Particles;
 	FParamMap0_ParticleState ParticleState;
+	FParamMap0_ScaleColor ScaleColor;
 	FParamMap0_SolveForcesAndVelocity SolveForcesAndVelocity;
 	FParamMap0_SpawnRate SpawnRate;
+	FParamMap0_SphereLocation SphereLocation;
+	FParamMap0_SpriteSizeScale SpriteSizeScale;
 	FParamMap0_System System;
 	FParamMap0_Transient Transient;
+	FParamMap0_UniformRangedFloat002 UniformRangedFloat002;
+	FParamMap0_UniformRangedFloat004 UniformRangedFloat004;
+	FParamMap0_UniformRangedFloat005 UniformRangedFloat005;
+	FParamMap0_Vector2DFromFloat Vector2DFromFloat;
+	FParamMap0_Vector2DFromFloat002 Vector2DFromFloat002;
 };
 
 struct FSimulationContext
@@ -600,9 +997,9 @@ struct FSimulationContext
 };
 
 static float HackSpawnInterp = 1.0;
-void Empty_Func_(inout FSimulationContext Context);
+void NE_Fireflytest_Func_(inout FSimulationContext Context);
 float GetSpawnInterpolation();
-void Empty_Func_(inout FSimulationContext Context)
+void NE_Fireflytest_Func_(inout FSimulationContext Context)
 {
 
 }
@@ -625,46 +1022,52 @@ void Simulate(inout FSimulationContext Context)
 	EnterStatScope(0 );
 
 	int Constant = 0;
-	Context.Map.Empty.ExecutionState = Constant;
+	Context.Map.NE_Fireflytest.ExecutionState = Constant;
 	float Constant1 = 0;
-	Context.Map.Empty.Age = Constant1;
+	Context.Map.System.Age = Constant1;
 	float Constant2 = 0;
-	Context.Map.Empty.CurrentLoopDuration = Constant2;
+	Context.Map.System.LoopedAge = Constant2;
 	float Constant3 = 0;
-	Context.Map.Empty.LoopedAge = Constant3;
+	Context.Map.System.NormalizedLoopAge = Constant3;
 	int Constant4 = 0;
-	Context.Map.Empty.LoopCount = Constant4;
-	float Constant5 = (0.0);
-	Context.Map.Empty.NormalizedLoopAge = Constant5;
-	float Constant6 = (0.0);
-	Context.Map.Empty.Scalability.DistanceFraction = Constant6;
-	int Constant7 = 0;
-	Context.Map.System.ExecutionState = Constant7;
-	int Constant8 = 0;
-	Context.Map.System.ExecutionStateSource = Constant8;
-	int Constant9 = 0;
-	Context.Map.Empty.ExecutionStateSource = Constant9;
-	float Constant10 = 0;
-	Context.Map.Empty.SpawnRate.SpawnRemainder = Constant10;
-	NiagaraSpawnInfo Constant11 = (NiagaraSpawnInfo)0;
-	Context.Map.Empty.SpawnRate.SpawnOutputInfo = Constant11;
-	bool Constant12 = false;
-	Context.Map.Empty.LocalSpace = Constant12;
-	float Constant13 = 0;
-	Context.Map.System.Age = Constant13;
-	float Constant14 = 0;
-	Context.Map.System.CurrentLoopDuration = Constant14;
-	float Constant15 = 0;
-	Context.Map.System.LoopedAge = Constant15;
+	Context.Map.System.LoopCount = Constant4;
+	float Constant5 = 0;
+	Context.Map.System.CurrentLoopDelay = Constant5;
+	float Constant6 = 0;
+	Context.Map.System.CurrentLoopDuration = Constant6;
+	float Constant7 = (0.0);
+	Context.Map.NE_Fireflytest.Age = Constant7;
+	float Constant8 = (0.0);
+	Context.Map.NE_Fireflytest.LoopedAge = Constant8;
+	float Constant9 = (0.0);
+	Context.Map.NE_Fireflytest.NormalizedLoopAge = Constant9;
+	int Constant10 = (0);
+	Context.Map.NE_Fireflytest.LoopCount = Constant10;
+	float Constant11 = (0.0);
+	Context.Map.NE_Fireflytest.CurrentLoopDelay = Constant11;
+	float Constant12 = (0.0);
+	Context.Map.NE_Fireflytest.CurrentLoopDuration = Constant12;
+	float Constant13 = (0.0);
+	Context.Map.NE_Fireflytest.Scalability.DistanceFraction = Constant13;
+	int Constant14 = 0;
+	Context.Map.System.ExecutionState = Constant14;
+	int Constant15 = 0;
+	Context.Map.System.ExecutionStateSource = Constant15;
 	int Constant16 = 0;
-	Context.Map.System.LoopCount = Constant16;
-	float Constant17 = (0.0);
-	Context.Map.System.NormalizedLoopAge = Constant17;
-	bool Constant18 = false;
-	Context.Map.System.bCompleteOnInactive = Constant18;
+	Context.Map.NE_Fireflytest.ExecutionStateSource = Constant16;
+	bool Constant17 = false;
+	Context.Map.System.bCompleteOnInactive = Constant17;
+	float Constant18 = 0;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnRemainder = Constant18;
+	NiagaraSpawnInfo Constant19 = (NiagaraSpawnInfo)0;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo = Constant19;
+	bool Constant20 = false;
+	Context.Map.NE_Fireflytest.LocalSpace = Constant20;
+	float Constant21 = 1;
+	Context.Map.NE_Fireflytest.AlphaScale = Constant21;
 
 	EnterStatScope(1 );
-	Empty_Func_(Context);
+	NE_Fireflytest_Func_(Context);
 	ExitStatScope( );
 
 
@@ -678,22 +1081,25 @@ EnterStatScope(2 );
 
 	FSimulationContext Context = (FSimulationContext)0;
 	Context.Map.Emitter.RandomSeed = 0;
-	Context.Map.Empty.Age = 0.0f;
-	Context.Map.Empty.CurrentLoopDuration = 0.0f;
-	Context.Map.Empty.ExecutionState = 0;
-	Context.Map.Empty.ExecutionStateSource = 0;
-	Context.Map.Empty.LocalSpace = false;
-	Context.Map.Empty.LoopCount = 0;
-	Context.Map.Empty.LoopedAge = 0.0f;
-	Context.Map.Empty.NormalizedLoopAge = 0.0f;
-	Context.Map.Empty.Scalability.DistanceFraction = 0.0f;
-	Context.Map.Empty.SpawnRate.SpawnOutputInfo.Count = 0;
-	Context.Map.Empty.SpawnRate.SpawnOutputInfo.InterpStartDt = 0.0f;
-	Context.Map.Empty.SpawnRate.SpawnOutputInfo.IntervalDt = 0.0f;
-	Context.Map.Empty.SpawnRate.SpawnOutputInfo.SpawnGroup = 0;
-	Context.Map.Empty.SpawnRate.SpawnRemainder = 0.0f;
+	Context.Map.NE_Fireflytest.Age = 0.0f;
+	Context.Map.NE_Fireflytest.AlphaScale = 0.0f;
+	Context.Map.NE_Fireflytest.CurrentLoopDelay = 0.0f;
+	Context.Map.NE_Fireflytest.CurrentLoopDuration = 0.0f;
+	Context.Map.NE_Fireflytest.ExecutionState = 0;
+	Context.Map.NE_Fireflytest.ExecutionStateSource = 0;
+	Context.Map.NE_Fireflytest.LocalSpace = false;
+	Context.Map.NE_Fireflytest.LoopCount = 0;
+	Context.Map.NE_Fireflytest.LoopedAge = 0.0f;
+	Context.Map.NE_Fireflytest.NormalizedLoopAge = 0.0f;
+	Context.Map.NE_Fireflytest.Scalability.DistanceFraction = 0.0f;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.Count = 0;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.InterpStartDt = 0.0f;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.IntervalDt = 0.0f;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.SpawnGroup = 0;
+	Context.Map.NE_Fireflytest.SpawnRate.SpawnRemainder = 0.0f;
 	Context.Map.System.Age = 0.0f;
 	Context.Map.System.bCompleteOnInactive = false;
+	Context.Map.System.CurrentLoopDelay = 0.0f;
 	Context.Map.System.CurrentLoopDuration = 0.0f;
 	Context.Map.System.ExecutionState = 0;
 	Context.Map.System.ExecutionStateSource = 0;
@@ -708,28 +1114,31 @@ EnterStatScope(2 );
 	{
 	int TmpWriteIndex = OutputIndex(0, false, true);
 	OutputDataInt(0, 0, TmpWriteIndex, Context.Map.Emitter.RandomSeed);
-	OutputDataFloat(0, 1, TmpWriteIndex, Context.Map.Empty.Age);
-	OutputDataFloat(0, 2, TmpWriteIndex, Context.Map.Empty.CurrentLoopDuration);
-	OutputDataInt(0, 3, TmpWriteIndex, Context.Map.Empty.ExecutionState);
-	OutputDataInt(0, 4, TmpWriteIndex, Context.Map.Empty.ExecutionStateSource);
-	OutputDataBool(0, 5, TmpWriteIndex, Context.Map.Empty.LocalSpace);
-	OutputDataInt(0, 6, TmpWriteIndex, Context.Map.Empty.LoopCount);
-	OutputDataFloat(0, 7, TmpWriteIndex, Context.Map.Empty.LoopedAge);
-	OutputDataFloat(0, 8, TmpWriteIndex, Context.Map.Empty.NormalizedLoopAge);
-	OutputDataFloat(0, 9, TmpWriteIndex, Context.Map.Empty.Scalability.DistanceFraction);
-	OutputDataInt(0, 10, TmpWriteIndex, Context.Map.Empty.SpawnRate.SpawnOutputInfo.Count);
-	OutputDataFloat(0, 11, TmpWriteIndex, Context.Map.Empty.SpawnRate.SpawnOutputInfo.InterpStartDt);
-	OutputDataFloat(0, 12, TmpWriteIndex, Context.Map.Empty.SpawnRate.SpawnOutputInfo.IntervalDt);
-	OutputDataInt(0, 13, TmpWriteIndex, Context.Map.Empty.SpawnRate.SpawnOutputInfo.SpawnGroup);
-	OutputDataFloat(0, 14, TmpWriteIndex, Context.Map.Empty.SpawnRate.SpawnRemainder);
-	OutputDataFloat(0, 15, TmpWriteIndex, Context.Map.System.Age);
-	OutputDataBool(0, 16, TmpWriteIndex, Context.Map.System.bCompleteOnInactive);
-	OutputDataFloat(0, 17, TmpWriteIndex, Context.Map.System.CurrentLoopDuration);
-	OutputDataInt(0, 18, TmpWriteIndex, Context.Map.System.ExecutionState);
-	OutputDataInt(0, 19, TmpWriteIndex, Context.Map.System.ExecutionStateSource);
-	OutputDataInt(0, 20, TmpWriteIndex, Context.Map.System.LoopCount);
-	OutputDataFloat(0, 21, TmpWriteIndex, Context.Map.System.LoopedAge);
-	OutputDataFloat(0, 22, TmpWriteIndex, Context.Map.System.NormalizedLoopAge);
+	OutputDataFloat(0, 1, TmpWriteIndex, Context.Map.NE_Fireflytest.Age);
+	OutputDataFloat(0, 2, TmpWriteIndex, Context.Map.NE_Fireflytest.AlphaScale);
+	OutputDataFloat(0, 3, TmpWriteIndex, Context.Map.NE_Fireflytest.CurrentLoopDelay);
+	OutputDataFloat(0, 4, TmpWriteIndex, Context.Map.NE_Fireflytest.CurrentLoopDuration);
+	OutputDataInt(0, 5, TmpWriteIndex, Context.Map.NE_Fireflytest.ExecutionState);
+	OutputDataInt(0, 6, TmpWriteIndex, Context.Map.NE_Fireflytest.ExecutionStateSource);
+	OutputDataBool(0, 7, TmpWriteIndex, Context.Map.NE_Fireflytest.LocalSpace);
+	OutputDataInt(0, 8, TmpWriteIndex, Context.Map.NE_Fireflytest.LoopCount);
+	OutputDataFloat(0, 9, TmpWriteIndex, Context.Map.NE_Fireflytest.LoopedAge);
+	OutputDataFloat(0, 10, TmpWriteIndex, Context.Map.NE_Fireflytest.NormalizedLoopAge);
+	OutputDataFloat(0, 11, TmpWriteIndex, Context.Map.NE_Fireflytest.Scalability.DistanceFraction);
+	OutputDataInt(0, 12, TmpWriteIndex, Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.Count);
+	OutputDataFloat(0, 13, TmpWriteIndex, Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.InterpStartDt);
+	OutputDataFloat(0, 14, TmpWriteIndex, Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.IntervalDt);
+	OutputDataInt(0, 15, TmpWriteIndex, Context.Map.NE_Fireflytest.SpawnRate.SpawnOutputInfo.SpawnGroup);
+	OutputDataFloat(0, 16, TmpWriteIndex, Context.Map.NE_Fireflytest.SpawnRate.SpawnRemainder);
+	OutputDataFloat(0, 17, TmpWriteIndex, Context.Map.System.Age);
+	OutputDataBool(0, 18, TmpWriteIndex, Context.Map.System.bCompleteOnInactive);
+	OutputDataFloat(0, 19, TmpWriteIndex, Context.Map.System.CurrentLoopDelay);
+	OutputDataFloat(0, 20, TmpWriteIndex, Context.Map.System.CurrentLoopDuration);
+	OutputDataInt(0, 21, TmpWriteIndex, Context.Map.System.ExecutionState);
+	OutputDataInt(0, 22, TmpWriteIndex, Context.Map.System.ExecutionStateSource);
+	OutputDataInt(0, 23, TmpWriteIndex, Context.Map.System.LoopCount);
+	OutputDataFloat(0, 24, TmpWriteIndex, Context.Map.System.LoopedAge);
+	OutputDataFloat(0, 25, TmpWriteIndex, Context.Map.System.NormalizedLoopAge);
 	}
 ExitStatScope( );
 }
